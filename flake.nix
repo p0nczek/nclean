@@ -14,8 +14,8 @@
         let
           pkgs = nixpkgs.legacyPackages.${system};
         in {
-          default = pkgs.stdenv.mkDerivation {
-            pname = "nclean";
+          default = pkgs.stdenvNoCC.mkDerivation {
+            pname = "nix-sweeper";
             version = "1.0.0";
 
             dontUnpack = true;
@@ -32,7 +32,7 @@
               description = "Curses TUI for managing NixOS generations";
               license = licenses.mit;
               platforms = platforms.linux;
-              mainProgram = "nclean";
+              mainProgram = "nix-sweeper";
             };
           };
         });
@@ -40,7 +40,7 @@
       apps = forAllSystems (system: {
         default = {
           type = "app";
-          program = "${self.packages.${system}.default}/bin/nclean";
+          program = "${self.packages.${system}.default}/bin/nix-sweeper";
         };
       });
     };
