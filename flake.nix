@@ -15,16 +15,16 @@
           pkgs = nixpkgs.legacyPackages.${system};
         in {
           default = pkgs.stdenvNoCC.mkDerivation {
-            pname = "nix-sweeper";
+            pname = "nclean";
             version = "1.0.0";
 
             dontUnpack = true;
             nativeBuildInputs = [ pkgs.makeWrapper ];
 
             installPhase = ''
-              install -Dm755 ${./nclean.py} $out/bin/.nix-sweeper-unwrapped
-              makeWrapper ${pkgs.python3}/bin/python3 $out/bin/nix-sweeper \
-                --add-flags $out/bin/.nix-sweeper-unwrapped \
+              install -Dm755 ${./nclean.py} $out/bin/.nclean-unwrapped
+              makeWrapper ${pkgs.python3}/bin/python3 $out/bin/nclean \
+                --add-flags $out/bin/.nclean-unwrapped \
                 --prefix PATH : ${pkgs.lib.makeBinPath [ pkgs.nh ]}
             '';
 
@@ -32,7 +32,7 @@
               description = "Curses TUI for managing NixOS generations";
               license = licenses.mit;
               platforms = platforms.linux;
-              mainProgram = "nix-sweeper";
+              mainProgram = "nclean";
             };
           };
         });
@@ -40,7 +40,7 @@
       apps = forAllSystems (system: {
         default = {
           type = "app";
-          program = "${self.packages.${system}.default}/bin/nix-sweeper";
+          program = "${self.packages.${system}.default}/bin/nclean";
         };
       });
     };
