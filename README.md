@@ -67,6 +67,12 @@ Add it as a flake input to your own configuration and expose the package via `en
 
 The current (active) generation can never be marked or deleted.
 
+https://github.com/user-attachments/assets/c6031356-296d-46bf-940e-22dc7a027f3b
+
+
+
+
+
 ## How it works
 
 `nclean.py` parses `nh os info` output with a regex and keeps the generation list in a thread-safe `Store`. Refreshing (`nh os info`) runs on a background daemon thread, so the UI draw loop (`main`) is never blocked for the duration of that call. Deleting generations (`sudo nix-env --delete-generations`) temporarily exits curses mode (`curses.endwin()`) so `sudo` can prompt for a password normally in the terminal, then returns to the TUI.
