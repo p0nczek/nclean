@@ -6,6 +6,10 @@ A fast, simple curses TUI for browsing and cleaning up NixOS system generations,
 
 > **Note:** This project was built with AI assistance (vibecoded). I'm not a professional developer — I reviewed and tested it, but if you spot bugs, bad practices, or security issues, please open an issue or PR. Use at your own risk, especially anything touching `sudo`.
 
+
+https://github.com/user-attachments/assets/c6031356-296d-46bf-940e-22dc7a027f3b
+
+
 ## Features
 
 - Lists system generations with build date, NixOS version, kernel, and closure size.
@@ -66,8 +70,6 @@ Add it as a flake input to your own configuration and expose the package via `en
 | `q` / `Esc` | Quit                                           |
 
 The current (active) generation can never be marked or deleted.
-
-https://github.com/user-attachments/assets/c6031356-296d-46bf-940e-22dc7a027f3b
 
 
 
