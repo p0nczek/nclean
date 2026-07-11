@@ -61,8 +61,8 @@ Add it as a flake input to your own configuration and expose the package via `en
 | Key         | Action                                      |
 |-------------|----------------------------------------------|
 | ↑ / ↓       | Navigate the list                             |
-| PgUp / PgDn (or `b` / `f`) | Jump a page up / down          |
-| Space       | Mark / unmark a generation                    |
+| `PgUp` / `PgDn` (or `b` / `f`) | Jump a page up / down          |
+| `Space`       | Mark / unmark a generation                    |
 | `a`         | Mark cursor + everything below it             |
 | `u`         | Unmark everything                             |
 | `d`         | Delete marked generations (with `y/N` confirm)|
