@@ -22,6 +22,9 @@ GEN_RE = re.compile(
 )
 REFRESH_INTERVAL = 30  # seconds between background refreshes
 
+CTRL_D = 4
+CTRL_U = 21
+
 
 @dataclass(slots=True)
 class Generation:
@@ -255,7 +258,7 @@ def draw_row(scr, y, gen: Generation, is_cursor: bool, w):
 
 
 def draw_help(scr, h, w):
-    txt = " q:exit  Space:toggle  a:mark-below  u:unmark-all  d:delete  g:gc  r:refresh"
+    txt = " q:exit  Space:toggle  a:mark-below  u:unmark-all  d:delete  g:gc  r:refresh  PgUp/PgDn(b/f):page"
     safe_addstr(scr, h - 1, 0, txt, curses.color_pair(C_WHITE))
 
 
@@ -282,6 +285,7 @@ def main(stdscr):
 
     gens: list[Generation] = []
     cursor = 0
+    page_step = 10  # updated each frame to match actual visible rows
     scroll = 0
     gc_on = True
     confirming = False
@@ -347,6 +351,10 @@ def main(stdscr):
                 last_refresh = now
                 status_msg = "Refreshing…"
                 status_time = now
+            elif key in (curses.KEY_NPAGE, CTRL_D, ord("f")) and gens:
+                cursor = min(cursor + page_step, len(gens) - 1)
+            elif key in (curses.KEY_PPAGE, CTRL_U, ord("b")) and gens:
+                cursor = max(cursor - page_step, 0)
 
         # ── Drawing ──────────────────────────────────────
         stdscr.erase()
@@ -373,6 +381,7 @@ def main(stdscr):
             y += 1
 
             visible = max(1, h - y - 3)
+            page_step = max(1, visible - 1)
             if cursor < scroll:
                 scroll = cursor
             if cursor >= scroll + visible:
@@ -393,7 +402,7 @@ def main(stdscr):
             draw_confirm(stdscr, store.mark_count(), h, w)
         else:
             draw_help(stdscr, h, w)
-
+            
         stdscr.refresh()
 
 
