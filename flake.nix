@@ -1,8 +1,8 @@
 {
   description = "nix-sweeper: curses TUI for managing NixOS generations";
 
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
+  
   outputs = { self, nixpkgs }:
     let
       forAllSystems = nixpkgs.lib.genAttrs [
